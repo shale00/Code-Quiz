@@ -1,7 +1,35 @@
 // Step 1 WHEN I click the start button
 // THEN a timer starts and I am presented with a question
 
-var startButton = document.querySelector("")
+var startButton = document.getElementById("start-button");
+var timerEl = document.getElementById("timer");
+var countdownEl = document.getElementById("countdown");
+var timeUp = document.getElementById("times-up");
+
+startButton.addEventListener("click",countdown);
+
+function countdown() {
+    var timeLeft = 5;
+
+    var timeInterval = setInterval(function () {
+        if (timeLeft >= 0) {
+            countdownEl.textContent = timeLeft;
+            timeLeft--;
+            questionCycle();
+
+        } else {
+            countdownEl.textContent = "";
+            clearInterval(timeInterval);
+            timerEl.textContent = "Time's Up!"
+            
+        }
+    }, 1000);
+    return;
+}
+
+function questionCycle() {
+
+}
 
 
 

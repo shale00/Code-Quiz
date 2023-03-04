@@ -7,7 +7,7 @@
     font-family: monospace;
 }
 
-.top, .top a {
+.top, .top a, #times-up {
     font-size: 18px;
     text-decoration: none;
     display: flex;
@@ -111,5 +111,5 @@ h1 {
 }
 
 #high-scores {
-    font-size: 24px;
+    font-size: 50px;
 }
