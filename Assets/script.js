@@ -1,6 +1,10 @@
 // Step 1 WHEN I click the start button
 // THEN a timer starts and I am presented with a question
 
+var startButton = document.querySelector("")
+
+
+
 //Step 2 WHEN I answer a question
 // THEN I am presented with another question
 

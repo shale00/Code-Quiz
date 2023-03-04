@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(40, 40, 40);
+    color: rgb(0, 255, 51);
+    font-family: monospace;
+}
+
+.top, .top a {
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top a:hover {
+    color: rgba(21, 255, 0, 0.706);
+    text-decoration: underline;
+}
+
+.main-body {
+    padding-top: 50px;
+    text-align: center;
+    margin: 50px;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+.quiz-start-p {
+    padding-top: 30px;
+    text-align: left;
+    font-size: 17px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.question-box {
+    padding-left: 30px;
+}
+
+.question-box h2{
+    padding-bottom: 30px;
+    text-align: left;
+}
+
+.button-section{
+    width: 100%;
+}
+
+.buttons {
+    font-size: 14px;
+    width: 33%;
+    display: block;
+    text-align: left;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: rgb(73, 73, 73);
+    border-radius: 8px;
+}
+
+.buttons:hover {
+    cursor: pointer;
+    background-color: rgb(60, 59, 59);
+}
+
+#start-button {
+    text-align: center;
+    display: inline;
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.score-display {
+    display: block;
+    font-size: 18px;
+}
+
+.final {
+    padding: 12px;
+}
+
+.user-submit {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}
+
+#submit, #go-back, #clear-scores {
+    margin: 0;
+    max-width: fit-content;
+    padding: 8px;
+    text-transform: uppercase;
+}
+
+.initials {
+    width: 70px;
+    height: 25px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.high-scores {
+    text-align-last: center;
+    text-align: -webkit-center;
+}
+
+#high-scores {
+    font-size: 24px;
+}

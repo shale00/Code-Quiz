@@ -12,24 +12,137 @@
 
     <!-- Header -->
     <header class="row">
-        <nav class="link">
+        <div class="top">
             <a href="#" id="view-high-scores">View High Scores
-            </a>   
-        </nav>
-
-        <div id="timer" class="timer-display" style="display: none;">
-            " Time: "
-            <span id="countdown"></span>
+            </a>
+            <p id="timer" style="">Time:
+                <span id="countdown"></span>
+            </p>
         </div>
 
         <div id="times-up" class="timer-display" style="display: none;">Time's Up!</div>
     </header>
 
-    <main id="main-body" class="">
+    <main id="main-body" class="main-body">
+        <!-- Start Screen -->
+        <div class="quiz-start" style="">
+            <h1 id="title">Coding Quiz Challenge</h1>
+            <p class="quiz-start-p">
+                Try to answer the following code-related questions within the time limit.
+                Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+            </p>
+            <button id="start-button" class="buttons">Start Quiz</button>
+        </div>
+
+        <!-- Quiz questions -->
+        <div id="question-box" class="question-box" style="">
+            <div id="question-1" style="">
+                <h2 id="q-1" class="question-p">
+                    Arrays in JavaScript can be used to store _______.
+                </h2>
+                <div class="button-section">
+                    <button class="buttons">1. numbers and strings</button>
+                    <button class="buttons">2. other arrays</button>
+                    <button class="buttons">3. booleans</button>
+                    <button class="buttons">4. all of the above</button>
+                </div>
+
+                <!-- line break for 'correct' or 'wrong' below -->
+
+                <br style="border-color: black;">
+
+                <p id="result" class="result"></p>
 
 
+            </div>
+
+            <div id="question-2" style="">
+                <h2 id="q-2" class="question-p">
+                    String values must be enclosed within _______ when being assigned to variables.
+                </h2>
+                <div class="button-section">
+                    <button class="buttons">1. commas</button>
+                    <button class="buttons">2. curly brackets</button>
+                    <button class="buttons">3. quotes</button>
+                    <button class="buttons">4. parenthesis</button>
+                </div>
+
+                <!-- line break for 'correct' or 'wrong' below -->
+
+                <br style="border-color: black;">
+
+                <p id="result" class="result"></p>
 
 
+            </div>
+
+            <div id="question-3" style="">
+                <h2 id="q-3" class="question-p">
+                    The condition in an if/else statement is enclosed with _______.
+                </h2>
+                <div class="button-section">
+                    <button class="buttons">1. quotes</button>
+                    <button class="buttons">2. curly brackets</button>
+                    <button class="buttons">3. parenthesis</button>
+                    <button class="buttons">4. square brackets</button>
+                </div>
+
+                <!-- line break for 'correct' or 'wrong' below -->
+
+                <br style="border-color: black;">
+
+                <p id="result" class="result"></p>
+
+
+            </div>
+
+            <div id="question-4" style="">
+                <h2 id="q-4" class="question-p">
+                    Commonly used data types do NOT include:
+                </h2>
+                <div class="button-section">
+                    <button class="buttons">1. strings</button>
+                    <button class="buttons">2. booleans</button>
+                    <button class="buttons">3. alerts</button>
+                    <button class="buttons">4. numbers</button>
+                </div>
+
+                <!-- line break for 'correct' or 'wrong' below -->
+
+                <br style="border-color: black;">
+
+                <p id="result" class="result"></p>
+
+
+            </div>
+        </div>
+
+        <!-- End game and submit initals -->
+
+        <div id="score-display" class="score-display">
+            <h2 class="question-p">All done!</h2>
+            <p class="final">Your final score is 
+                <span id="final-score"></span>! 
+            </p>
+            <div class="user-submit">
+                <p class="final">Enter initials:
+                    <textarea id="initials" class="initials"></textarea>
+                </p>
+                <button id="submit" class="buttons">Submit</button>
+            </div>
+            
+
+        </div>
+
+        <!-- High Scores  -->
+
+        <div id="high-scores" class="high-scores">
+            <h2 id="high-scores">HIGH SCORES</h2>
+
+            <button id="go-back" class="buttons">Go Back</button>
+            <button id="clear-scores" class="buttons">Clear High Scores</button>
+        </div>
+            
 
     </main>
 
