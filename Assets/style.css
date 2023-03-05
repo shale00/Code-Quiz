@@ -5,6 +5,7 @@
     background-color: rgb(40, 40, 40);
     color: rgb(0, 255, 51);
     font-family: monospace;
+    width: 100%;
 }
 
 .top, .top a, #times-up {
@@ -23,6 +24,7 @@
     padding-top: 50px;
     text-align: center;
     margin: 50px;
+    width: 50%;
 }
 
 h1 {
@@ -88,7 +90,7 @@ h1 {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 75%;
+    width: 40%;
 }
 
 #submit, #go-back, #clear-scores {
