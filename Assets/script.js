@@ -54,12 +54,8 @@ function countdown() {
             timeLeft--;
             console.log("timer");
         } else {
-            countdownEl.textContent = "";
             clearInterval(timeInterval);
-            timerEl.textContent = "Time's Up!"
-            questionBox.setAttribute("style","display: none");
-            scoreDisplay.setAttribute("style","display: block");
-            
+            endGame();    
         }
     }, 1000);
     questionCycle();
@@ -67,10 +63,10 @@ function countdown() {
 
 //Function to loop through the questions in the object array
 function questionCycle() {
-    console.log("question cycle");
+    console.log(questionIndex);
     questionBox.setAttribute("style","display: block");
 
-    for (var i = 0; i < questions.length; i++) {
+    for (var i = 0; i <= questions.length; i++) {
         questionTitle.textContent = questions[questionIndex].question;
         answerOne.textContent = questions[questionIndex].choices[0];
         answerTwo.textContent = questions[questionIndex].choices[1];
@@ -116,11 +112,21 @@ function userAnswer(event) {
         console.log("wrong");
     }
     questionCycle(questionIndex++);
-}
 
+    if (questionIndex >= questionIndex.length){
+        endGame();
+    }
+}
 //Step 4 WHEN all questions are answered or the timer reaches 0
 // THEN the game is over
 
+//End Game function to display score and submit initials
+function endGame() {
+    quizStart.setAttribute("style","display: none;");
+    scoreDisplay.setAttribute("style","display: block");
+    questionBox.setAttribute("style","display: none");
+    timerEl.textContent = "Game Over!"
+}
 
 // Step 5 WHEN the game is over
 // THEN I can save my initials and score
