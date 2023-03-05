@@ -1,6 +1,7 @@
 // Step 1 WHEN I click the start button
 // THEN a timer starts and I am presented with a question
 
+//Global Variables
 var startButton = document.getElementById("start-button");
 var timerEl = document.getElementById("timer");
 var countdownEl = document.getElementById("countdown");
@@ -13,7 +14,10 @@ var answerThree = document.getElementById("answer-3");
 var answerFour = document.getElementById("answer-4");
 var quizStart = document.getElementById("quiz-start");
 var questionBox = document.getElementById("question-box");
+var questionIndex = 0;
+var timeLeft = 150;
 
+//Question object array
 var questions = [
     {
         question:"Arrays in JavaScript can be used to store _______.",
@@ -37,19 +41,18 @@ var questions = [
     }
 ]
 
+//Start button event listener
 startButton.addEventListener("click",countdown);
 
+//Function to start the quiz and the countdown that calls the question cycle function
 function countdown() {
     quizStart.setAttribute("style","display: none");
-    var timeLeft = 5;
 
     var timeInterval = setInterval(function () {
-        if (timeLeft > 0) {
+        if (timeLeft >= 0) {
             countdownEl.textContent = timeLeft;
             timeLeft--;
-            questionCycle();
             console.log("timer");
-
         } else {
             countdownEl.textContent = "";
             clearInterval(timeInterval);
@@ -59,14 +62,14 @@ function countdown() {
             
         }
     }, 1000);
-    
+    questionCycle();
 }
 
+//Function to loop through the questions in the object array
 function questionCycle() {
     console.log("question cycle");
     questionBox.setAttribute("style","display: block");
 
-    var questionIndex = 0
     for (var i = 0; i < questions.length; i++) {
         questionTitle.textContent = questions[questionIndex].question;
         answerOne.textContent = questions[questionIndex].choices[0];
@@ -78,12 +81,46 @@ function questionCycle() {
 
 //Step 2 WHEN I answer a question
 // THEN I am presented with another question
-
 // Step 3 WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock
 
+//Answer button event listeners that call a respective function for each answer
+buttonOne.addEventListener("click", choice1);
+buttonTwo.addEventListener("click", choice2);
+buttonThree.addEventListener("click", choice3);
+buttonFour.addEventListener("click", choice4);
+
+//Answer button functions to test the answer
+function choice1(){
+    userAnswer(0);
+}
+
+function choice2(){
+    userAnswer(1);
+}
+
+function choice3(){
+    userAnswer(2);
+}
+
+function choice4(){
+    userAnswer(3);
+}
+
+//User answer fuction to compare the user choice to the correct answer and then call the question cycle function
+function userAnswer(event) {
+    if (questions[questionIndex].answer === questions[questionIndex].choices[event]) {
+        console.log("correct");
+    } else {
+        timeLeft = timeLeft - 10;
+        console.log("wrong");
+    }
+    questionCycle(questionIndex++);
+}
+
 //Step 4 WHEN all questions are answered or the timer reaches 0
-// THEN the game is ove
+// THEN the game is over
+
 
 // Step 5 WHEN the game is over
 // THEN I can save my initials and score
