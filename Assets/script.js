@@ -15,7 +15,14 @@ var answerFour = document.getElementById("answer-4");
 var quizStart = document.getElementById("quiz-start");
 var questionBox = document.getElementById("question-box");
 var questionIndex = 0;
-var timeLeft = 150;
+var timeLeft = 15;
+var finalScore = document.getElementById("final-score");
+var submitForm = document.getElementById("submit-form");
+var highScoreBox = document.getElementById("high-scores");
+var highScoreList = document.getElementById("high-score-list");
+var userInput = document.getElementById("initials");
+var clearScores = document.getElementById("clear-scores");
+var goBack = document.getElementById("go-back");
 
 //Question object array
 var questions = [
@@ -39,7 +46,7 @@ var questions = [
         choices:["strings","booleans","alerts","numbers"],
         answer:"alerts"
     }
-]
+];
 
 //Start button event listener
 startButton.addEventListener("click",countdown);
@@ -65,8 +72,8 @@ function countdown() {
 function questionCycle() {
     console.log(questionIndex);
     questionBox.setAttribute("style","display: block");
-
-    for (var i = 0; i <= questions.length; i++) {
+    
+    for (var i = 0; i < questions.length; i++) {
         questionTitle.textContent = questions[questionIndex].question;
         answerOne.textContent = questions[questionIndex].choices[0];
         answerTwo.textContent = questions[questionIndex].choices[1];
@@ -126,7 +133,80 @@ function endGame() {
     scoreDisplay.setAttribute("style","display: block");
     questionBox.setAttribute("style","display: none");
     timerEl.textContent = "Game Over!"
+    finalScore.textContent = timeLeft
 }
 
 // Step 5 WHEN the game is over
 // THEN I can save my initials and score
+
+
+//User inital list array
+var userInitials = [];
+//Function to display submitted score and initals to high scores list
+function renderHighScores(){
+    console.log('render')
+
+    //clear user input
+    userInput.innerHTML = "";
+
+    //Render a new li for each user initials
+    for (var i = 0; i < userInitials.length; i++) {
+        var initials = userInitials[i];
+
+        var li = document.createElement("li");
+        li.textContent = (initials + "  " + timeLeft);
+        li.setAttribute("data-index", i);
+        highScoreList.appendChild(li);
+    }
+
+}
+//Function to get stored user initials from local storage and update the array
+function init() {
+
+    //Display the High Scores section and hide the score display section
+    scoreDisplay.setAttribute("style","display: none;");
+    highScoreBox.setAttribute("style","display: block;");
+
+    var storedInitials = JSON.parse(localStorage.getItem("userInitials"));
+
+    if (storedInitials !== null) {
+        userInitials = storedInitials;
+    }
+}
+
+//Function to stringify and set key in localStorage to userInitials array
+function storedInitials() {
+    localStorage.setItem("userInitials", JSON.stringify(userInitials));
+}
+
+//Add submit event to form
+submitForm.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("submit");
+    scoreDisplay.setAttribute("style","display: none;");
+    highScoreBox.setAttribute("style","display: block;");
+    init();
+
+    var initialsText = userInput.value.trim();
+
+    //Return from function early if submitted initialsText is blank
+    if (initialsText === "") {
+        return;
+    }
+
+    //Add new initialsText to userInitials array, clear the input
+    userInitials.push(initialsText);
+    userInput.value = "";
+
+    //Store updated userInitials in localStorage, re-render the list
+    storedInitials();
+    renderHighScores();
+});
+
+//Event listener and function to clear high scores
+clearScores.addEventListener("click", function(event){
+    event.preventDefault();
+    window.localStorage.clear(userInitials);
+    highScoreList.innerHTML = "";
+});
+
