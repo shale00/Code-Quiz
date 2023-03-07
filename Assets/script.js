@@ -15,7 +15,7 @@ var answerFour = document.getElementById("answer-4");
 var quizStart = document.getElementById("quiz-start");
 var questionBox = document.getElementById("question-box");
 var questionIndex = 0;
-var timeLeft = 15;
+var timeLeft = 20;
 var finalScore = document.getElementById("final-score");
 var submitForm = document.getElementById("submit-form");
 var highScoreBox = document.getElementById("high-scores");
@@ -23,6 +23,8 @@ var highScoreList = document.getElementById("high-score-list");
 var userInput = document.getElementById("initials");
 var clearScores = document.getElementById("clear-scores");
 var goBack = document.getElementById("go-back");
+var viewHS = document.getElementById("view-high-scores");
+
 
 //Question object array
 var questions = [
@@ -112,17 +114,22 @@ function choice4(){
 
 //User answer fuction to compare the user choice to the correct answer and then call the question cycle function
 function userAnswer(event) {
+    console.log(questionIndex);
     if (questions[questionIndex].answer === questions[questionIndex].choices[event]) {
         console.log("correct");
+        // finalScore = finalScore + 10;
     } else {
         timeLeft = timeLeft - 10;
         console.log("wrong");
     }
-    questionCycle(questionIndex++);
-
-    if (questionIndex >= questionIndex.length){
+    
+    if (questionIndex === (questionIndex.length -1)){
         endGame();
+    } else {
+        questionCycle(questionIndex++);
+
     }
+    
 }
 //Step 4 WHEN all questions are answered or the timer reaches 0
 // THEN the game is over
@@ -133,80 +140,92 @@ function endGame() {
     scoreDisplay.setAttribute("style","display: block");
     questionBox.setAttribute("style","display: none");
     timerEl.textContent = "Game Over!"
-    finalScore.textContent = timeLeft
+    finalScore.textContent = timeLeft;
 }
 
 // Step 5 WHEN the game is over
 // THEN I can save my initials and score
 
+//Function to retrieve saved scores from local storage and create a list to display them
+function displayScores() {
+    var userScores = localStorage.getItem("userScores");
+    userScores = JSON.parse(userScores);
 
-//User inital list array
-var userInitials = [];
-//Function to display submitted score and initals to high scores list
-function renderHighScores(){
-    console.log('render')
-
-    //clear user input
-    userInput.innerHTML = "";
-
-    //Render a new li for each user initials
-    for (var i = 0; i < userInitials.length; i++) {
-        var initials = userInitials[i];
-
-        var li = document.createElement("li");
-        li.textContent = (initials + "  " + timeLeft);
-        li.setAttribute("data-index", i);
-        highScoreList.appendChild(li);
-    }
-
-}
-//Function to get stored user initials from local storage and update the array
-function init() {
-
-    //Display the High Scores section and hide the score display section
-    scoreDisplay.setAttribute("style","display: none;");
-    highScoreBox.setAttribute("style","display: block;");
-
-    var storedInitials = JSON.parse(localStorage.getItem("userInitials"));
-
-    if (storedInitials !== null) {
-        userInitials = storedInitials;
-    }
-}
-
-//Function to stringify and set key in localStorage to userInitials array
-function storedInitials() {
-    localStorage.setItem("userInitials", JSON.stringify(userInitials));
-}
-
-//Add submit event to form
-submitForm.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log("submit");
-    scoreDisplay.setAttribute("style","display: none;");
-    highScoreBox.setAttribute("style","display: block;");
-    init();
-
-    var initialsText = userInput.value.trim();
-
-    //Return from function early if submitted initialsText is blank
-    if (initialsText === "") {
+    if (userScores !== null) {
+        for (var i = 0; i < userScores.length; i++) {
+            var initials = (userScores[i].user + "  " + userScores[i].score);
+            var li = document.createElement("li");
+            li.setAttribute("class","list-item");
+            li.textContent = (initials);
+            highScoreList.appendChild(li);
+        }  
+    } else {
         return;
     }
+  
+}
 
-    //Add new initialsText to userInitials array, clear the input
-    userInitials.push(initialsText);
-    userInput.value = "";
+//Function to display a message if there is no user input
+function displayMessage(message) {
+    console.log("display message");
+    var displayMessage = document.createElement("p");
+    displayMessage.setAttribute("id","display-message");
+    displayMessage.textContent = message;
+    scoreDisplay.appendChild(displayMessage);
+}
 
-    //Store updated userInitials in localStorage, re-render the list
-    storedInitials();
-    renderHighScores();
-});
+
+//Event listener and function for submit button
+submitForm.addEventListener("click", function(event) {
+    //Display message if no input and stop the function
+    if (userInput.value === "") {
+        displayMessage("Need to enter initials!");
+        return;
+    //Object to store user input and score    
+    } else {
+        var userInfo = {
+            user: userInput.value,
+            score: timeLeft
+        };
+        //Store the object in local storage
+        var userScores = localStorage.getItem("userScores");
+        if (userScores === null) {
+            userScores = [];
+        } else {
+            userScores = JSON.parse(userScores);
+        }
+        //Add user scores to object
+        userScores.push(userInfo);
+        var newInput = JSON.stringify(userScores);
+        localStorage.setItem("userScores", newInput);
+
+        //Display High score list and hide score display
+        scoreDisplay.setAttribute("style","display: none;");
+        highScoreBox.setAttribute("style","display: block;");
+
+        displayScores();
+
+    }
+})
+
 
 //Event listener and function to clear high scores
 clearScores.addEventListener("click", function(event){
     event.preventDefault();
-    window.localStorage.clear(userInitials);
+    window.localStorage.clear();
     highScoreList.innerHTML = "";
 });
 
+//Event listener and function to refresh the page
+goBack.addEventListener("click", function(event){
+    location.reload();
+});
+
+//Event listener to view the high scores list
+viewHS.addEventListener("click", function(event){
+    quizStart.setAttribute("style","display: none");
+    questionBox.setAttribute("style","display: none;");
+    scoreDisplay.setAttribute("style","display: none;");
+    highScoreBox.setAttribute("style","display: block;");
+    displayScores();
+})

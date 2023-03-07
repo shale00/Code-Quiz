@@ -112,6 +112,16 @@ h1 {
     text-align: -webkit-center;
 }
 
-#high-scores {
+.high-scores ul {
+    list-style-type: none;
+    padding-bottom: 30px;
+}
+
+#high-scores h2 {
     font-size: 50px;
+    padding-bottom: 50px;
+}
+
+.list-item {
+    font-size: 30px;
 }
