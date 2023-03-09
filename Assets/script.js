@@ -52,6 +52,11 @@ var questions = [
         question:"A very useful tool used during development and debugging for printing content to the debugger is:",
         choices:["JavaScript","terminal/bash","for loops","console.log"],
         answer:"console.log"
+    },
+    {
+        question:"Thats All!",
+        choices: [],
+        answer:""
     }
 ];
 
@@ -63,13 +68,13 @@ function countdown() {
     quizStart.setAttribute("style","display: none");
 
     var timeInterval = setInterval(function () {
-        if (timeLeft >= 0) {
+        if ((timeLeft >= 0) && questionIndex < (questions.length -1)) {
             countdownEl.textContent = timeLeft;
             timeLeft--;
             console.log("timer");
         } else {
             clearInterval(timeInterval);
-            endGame();    
+            endGame();
         }
     }, 1000);
     questionCycle();
@@ -206,7 +211,7 @@ submitForm.addEventListener("click", function(event) {
         //Display High score list and hide score display
         scoreDisplay.setAttribute("style","display: none;");
         highScoreBox.setAttribute("style","display: block;");
-
+        highScoreBox.setAttribute("name","");
         displayScores();
 
     }
@@ -227,9 +232,16 @@ goBack.addEventListener("click", function(event){
 
 //Event listener to view the high scores list
 viewHS.addEventListener("click", function(event){
-    quizStart.setAttribute("style","display: none");
-    questionBox.setAttribute("style","display: none;");
-    scoreDisplay.setAttribute("style","display: none;");
-    highScoreBox.setAttribute("style","display: block;");
-    displayScores();
+    if (highScoreBox.hasAttribute("name")) {
+        console.log("on hs page");
+        return;
+    } else {
+        console.log("not on hs page");
+        quizStart.setAttribute("style","display: none");
+        questionBox.setAttribute("style","display: none;");
+        scoreDisplay.setAttribute("style","display: none;");
+        highScoreBox.setAttribute("style","display: block;");
+        displayScores();
+        highScoreBox.setAttribute("name","");
+    }
 })
