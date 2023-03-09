@@ -15,7 +15,7 @@ var answerFour = document.getElementById("answer-4");
 var quizStart = document.getElementById("quiz-start");
 var questionBox = document.getElementById("question-box");
 var questionIndex = 0;
-var timeLeft = 20;
+var timeLeft = 50;
 var finalScore = document.getElementById("final-score");
 var submitForm = document.getElementById("submit-form");
 var highScoreBox = document.getElementById("high-scores");
@@ -47,6 +47,11 @@ var questions = [
         question:"Commonly used data types do NOT include:",
         choices:["strings","booleans","alerts","numbers"],
         answer:"alerts"
+    },
+    {
+        question:"A very useful tool used during development and debugging for printing content to the debugger is:",
+        choices:["JavaScript","terminal/bash","for loops","console.log"],
+        answer:"console.log"
     }
 ];
 
@@ -123,11 +128,10 @@ function userAnswer(event) {
         console.log("wrong");
     }
     
-    if (questionIndex === (questionIndex.length -1)){
+    if (questionIndex === (questions.length -1)){
         endGame();
     } else {
         questionCycle(questionIndex++);
-
     }
     
 }
