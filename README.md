@@ -10,7 +10,7 @@ N/A
 
 ## Mock up
 
-![The Password Generator application displays a red button to "Generate Password".](./Assets/images/quiz%20challenge%20start.png)
+![The Start screen of the coding quiz.](./Assets/images/quiz%20challenge%20start.png)
 
 ## Credits
 
