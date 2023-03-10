@@ -54,8 +54,8 @@ var questions = [
         answer:"console.log"
     },
     {
-        question:"Thats All!",
-        choices: [],
+        question:"Thats All The Questions!",
+        choices: ["","","",""],
         answer:""
     }
 ];
@@ -68,7 +68,7 @@ function countdown() {
     quizStart.setAttribute("style","display: none");
 
     var timeInterval = setInterval(function () {
-        if ((timeLeft >= 0) && questionIndex < (questions.length -1)) {
+        if ((timeLeft >= 0) && questionIndex < (questions.length -1) && !highScoreBox.hasAttribute("name")) {
             countdownEl.textContent = timeLeft;
             timeLeft--;
             console.log("timer");
@@ -145,11 +145,15 @@ function userAnswer(event) {
 
 //End Game function to display score and submit initials
 function endGame() {
-    quizStart.setAttribute("style","display: none;");
-    scoreDisplay.setAttribute("style","display: block");
-    questionBox.setAttribute("style","display: none");
-    timerEl.textContent = "Game Over!"
-    finalScore.textContent = timeLeft;
+    if (!highScoreBox.hasAttribute("name")) {
+        quizStart.setAttribute("style","display: none;");
+        scoreDisplay.setAttribute("style","display: block");
+        questionBox.setAttribute("style","display: none");
+        timerEl.textContent = "Game Over!"
+        finalScore.textContent = timeLeft;
+    } else {
+        return;
+    }
 }
 
 // Step 5 WHEN the game is over
@@ -176,11 +180,17 @@ function displayScores() {
 
 //Function to display a message if there is no user input
 function displayMessage(message) {
-    console.log("display message");
     var displayMessage = document.createElement("p");
-    displayMessage.setAttribute("id","display-message");
-    displayMessage.textContent = message;
-    scoreDisplay.appendChild(displayMessage);
+    if (scoreDisplay.hasAttribute("name")) {
+        return;
+    } else {
+        console.log("display message");
+        displayMessage.setAttribute("id","display-message");
+        scoreDisplay.setAttribute("name","");
+        displayMessage.textContent = message;
+        scoreDisplay.appendChild(displayMessage);
+    }
+    
 }
 
 
